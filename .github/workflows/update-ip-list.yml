@@ -1,0 +1,32 @@
+name: Update IP CIDRs list
+
+on:
+  schedule:
+  - cron: 0 0 * * 0
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get jq
+        run: |
+          sudo apt install jq -y
+      - name: Update IP CIDRs
+        run: |
+          echo "" > ${{ github.workspace }}/ip.txt
+          while read -r line; do
+            curl -sL "https://ip.guide/${line}" | jq ".routes.v4, .routes.v6 | join(\"\n\")" -r >> ${{ github.workspace }}/ip.txt
+          done <vpsh.txt
+      - name: Commit to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -am "IP CIDRs update [$(date -u -Iminutes)]"
+          git push
