@@ -1,10 +1,22 @@
 # Server hosting IP CIDRs
 
-Create a list of server hosting service IP CIDRs by using a list of ASNs tagged from bgp.tools (https://bgp.tools/tags/vpsh.csv). Inspired by https://github.com/jhassine/server-ip-addresses.
+Create a list of server hosting service IP CIDRs by using a list of ASNs tagged from bgp.tools. 
 
-Github workflows are set up to update this list every week.
+This can be useful for blocking any traffic coming from a datacentre, like bots accessing an application intended for clients only (like game servers).
 
-Can be useful for blocking bot traffic, but might also block VPN traffic as well.
+Note: it might also block certain traffic from VPN services.
+
+## Server hosts listed include
+- Google
+- OVH
+- DigitalOcean
+- Akamai/linode
+- Azure
+- Rackspace
+- Oracle Cloud
+- Hetzner
+
+... And more! See the full list here! https://bgp.tools/tags/vpsh
 
 ## Files
 
@@ -15,3 +27,6 @@ I'm using it for blocking bot traffic on my small game servers. Add `https://raw
 
 ### `vpsh.txt`
 A list of ASNs tagged by bgp.tools for being server hosts. Updated on Fridays.
+
+
+*Inspired by https://github.com/jhassine/server-ip-addresses.*
